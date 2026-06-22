@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>世界杯 · 赛事信息站</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f6f9;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #153243;
+      padding: 1.5rem 1.2rem;
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    /* 蓝绿氛围点缀 */
+    .accent-line {
+      width: 64px;
+      height: 5px;
+      background: linear-gradient(90deg, #2c7a78, #5f9ea0);
+      border-radius: 3px;
+      margin: 0.6rem 0 1.2rem 0;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #1a3e4c;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: #1e4b5c;
+      border-left: 5px solid #3b8b8a;
+      padding-left: 0.9rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #205b6e;
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      margin-bottom: 0.9rem;
+      color: #1f4151;
+    }
+
+    a {
+      color: #17616b;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    a:hover {
+      border-bottom-color: #2c7a78;
+    }
+
+    /* hero 区 */
+    .hero {
+      background: #e5f0f1;
+      padding: 2.2rem 1.8rem;
+      border-radius: 32px;
+      margin-bottom: 2.4rem;
+      box-shadow: 0 6px 18px rgba(44, 122, 120, 0.08);
+    }
+
+    .hero .sub {
+      font-size: 0.95rem;
+      color: #346f77;
+      margin-top: 0.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero .sub span {
+      background: #cde3e4;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* 卡片网格 */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+      margin: 2.2rem 0;
+    }
+
+    .card {
+      background: #ffffffd9;
+      backdrop-filter: blur(2px);
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 8px 20px rgba(0, 40, 50, 0.04);
+      border: 1px solid #d5e8ea;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(44, 122, 120, 0.12);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #d9eef0;
+      color: #1f5d68;
+      padding: 0.1rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .faq-block {
+      background: #f0f8f9;
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem;
+      margin: 2rem 0 1.6rem 0;
+    }
+
+    .faq-item {
+      margin-bottom: 1.6rem;
+    }
+
+    .faq-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      color: #1a4f5e;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .faq-q::before {
+      content: "▸";
+      color: #2c7a78;
+      font-weight: 700;
+    }
+
+    .faq-a {
+      margin-top: 0.15rem;
+      padding-left: 1.3rem;
+      color: #265a68;
+      font-size: 0.95rem;
+    }
+
+    .note-box {
+      background: #ddedf0;
+      border-left: 5px solid #3c8b8a;
+      padding: 1.3rem 1.2rem;
+      border-radius: 18px;
+      margin: 2rem 0;
+    }
+
+    .note-box p {
+      margin-bottom: 0.2rem;
+    }
+
+    .tiny-meta {
+      font-size: 0.8rem;
+      color: #48747c;
+      border-top: 1px solid #cbe0e2;
+      padding-top: 1.6rem;
+      margin-top: 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      body {
+        padding: 0.9rem;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+      .hero {
+        padding: 1.6rem 1.2rem;
+      }
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .faq-block {
+        padding: 1.2rem;
+      }
+    }
+
+    /* 小工具 */
+    .inline-code {
+      background: #deeef1;
+      padding: 0.1rem 0.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- hero -->
+  <header class="hero">
+    <h1>⚽ 世界杯 · 赛事信息窗</h1>
+    <div class="accent-line"></div>
+    <p style="font-size:1.1rem; max-width: 680px;">
+      围绕 <strong>世界杯</strong> 提供基础赛事动态、背景介绍与观赛参考。  
+      这是一个轻量信息站点，适合想快速了解本届赛事概况的朋友。
+    </p>
+    <div class="sub">
+      <span>📋 一般性介绍</span>
+      <span>🏆 聚焦世界杯</span>
+    </div>
+  </header>
+
+  <!-- 摘要卡片 -->
+  <div class="grid-2col">
+    <div class="card">
+      <span class="card-icon">📌</span>
+      <h3>站点定位</h3>
+      <p>本站整理公开赛事资料与观赛提示，不涉及投注、博彩或任何违规内容。如果你正在寻找客观的世界杯信息，这里是一个简单的起点。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">✨</span>
+      <h3>内容风格</h3>
+      <p>以平实语言介绍赛程背景、观赛注意事项，以及部分球队基础数据。不制造噱头，不吹捧预测，只呈现经核对的已知信息。</p>
+    </div>
+  </div>
+
+  <!-- 亮点 / 特点 -->
+  <h2>⚡ 页面亮点</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+    <div style="flex:1; min-width:180px; background: white; border-radius: 20px; padding:1.2rem 1rem; border:1px solid #d0e2e5;">
+      <span style="font-size:1.5rem;">🧭</span>
+      <p style="font-weight:500; margin:0.3rem 0 0.2rem;">简洁导航</p>
+      <p style="font-size:0.9rem;">通过分类卡片快速定位你关心的世界杯话题。</p>
+    </div>
+    <div style="flex:1; min-width:180px; background: white; border-radius: 20px; padding:1.2rem 1rem; border:1px solid #d0e2e5;">
+      <span style="font-size:1.5rem;">📅</span>
+      <p style="font-weight:500; margin:0.3rem 0 0.2rem;">场景化建议</p>
+      <p style="font-size:0.9rem;">针对不同观赛习惯整理实用小贴士，供你参考。</p>
+    </div>
+    <div style="flex:1; min-width:180px; background: white; border-radius: 20px; padding:1.2rem 1rem; border:1px solid #d0e2e5;">
+      <span style="font-size:1.5rem;">🔍</span>
+      <p style="font-weight:500; margin:0.3rem 0 0.2rem;">克制可信</p>
+      <p style="font-size:0.9rem;">所有信息均标注来源语境，不夸大不模糊。</p>
+    </div>
+  </div>
+
+  <!-- 使用建议 / 场景 -->
+  <h2>💡 使用建议</h2>
+  <div class="grid-2col" style="margin-top:0.2rem;">
+    <div class="card">
+      <span style="font-size:1.6rem; display:block;">🪄</span>
+      <h3>快速浏览</h3>
+      <p>如果你只有几分钟时间，可以优先阅读首页摘要和 FAQ 板块，快速建立对当前世界杯的基本认知。</p>
+    </div>
+    <div class="card">
+      <span style="font-size:1.6rem; display:block;">📎</span>
+      <h3>延伸了解</h3>
+      <p>站内提及的赛事节点、历史数据均来自公开报道，你可以通过文中链接进一步核实。最直接的方式就是前往 <a href="https://pro-nacup26.com">世界杯</a> 页面浏览完整信息。</p>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要 -->
+  <div class="faq-block">
+    <h2 style="border-left-color:#3b8b8a; margin-bottom:1.4rem; padding-left:0.7rem;">❓ FAQ 摘要</h2>
+    <div class="faq-item">
+      <div class="faq-q">这个网站和官方世界杯有什么关系？</div>
+      <div class="faq-a">本站是独立的信息整理页面，并非国际足联（FIFA）官方站点。所有内容均基于公开资料，旨在提供便利的参考入口。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">信息更新频率如何？</div>
+      <div class="faq-a">基础介绍与赛程概览会随赛事阶段做例行同步，重大变动会尽快标注。更新节奏以周为单位。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">从哪个链接可以开始了解详细内容？</div>
+      <div class="faq-a">页面中多次提及的核心信息源就是 <a href="https://pro-nacup26.com">世界杯</a> 专题页，你可以把它当作索引首页。</div>
+    </div>
+  </div>
+
+  <!-- 可信但克制的访问说明 -->
+  <div class="note-box">
+    <p style="font-weight:500; font-size:1.05rem;">🛡️ 可信说明</p>
+    <p>本站不收集隐私数据，不含隐藏跟踪代码。所有外部链接均以 <span class="inline-code">https://</span> 开头，指向公开内容。如果你对任何信息存疑，建议对照权威体育媒体或国际足联官方公告做交叉验证。</p>
+    <p style="margin-top:0.6rem;">保持理性，享受比赛 —— 这才是世界杯最质朴的乐趣。</p>
+  </div>
+
+  <!-- 底部 -->
+  <div class="tiny-meta">
+    <span>⚙️ 信息站 · 仅供一般参考</span>
+    <span style="font-size:0.7rem; opacity:0.7;">非官方 · 无推广</span>
+  </div>
+
+  <!-- 种子标记（不显示） -->
+  <!-- a89542c69177e4fd -->
+
+</div>
+</body>
+</html>
